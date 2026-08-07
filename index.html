@@ -1,1 +1,677 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Клан Египет | Главная</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+    <style>
+        /* ============================================================
+                   ROOT VARIABLES — полная палитра
+                   ============================================================ */
+        :root {
+            --gold: #d4a84b;
+            --gold-light: #f0d68a;
+            --gold-dark: #a8832f;
+            --gold-glow: rgba(212, 168, 75, 0.3);
+            --gold-subtle: rgba(212, 168, 75, 0.08);
 
+            --bg-primary: #0b0806;
+            --bg-secondary: #15100b;
+            --bg-card: #1c1610;
+            --bg-card-hover: #241d15;
+
+            --border-gold: rgba(212, 168, 75, 0.2);
+            --border-gold-hover: rgba(212, 168, 75, 0.5);
+
+            --text-primary: #f0e6d8;
+            --text-secondary: #b0a090;
+            --text-muted: #7a6e62;
+
+            --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.7);
+            --shadow-gold: 0 0 60px rgba(212, 168, 75, 0.05);
+            --shadow-glow: 0 0 40px rgba(212, 168, 75, 0.08);
+
+            --radius-lg: 32px;
+            --radius-md: 24px;
+            --radius-sm: 18px;
+            --radius-xs: 12px;
+
+            --transition-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* ============================================================
+                   RESET & BASE
+                   ============================================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            background-image:
+                radial-gradient(ellipse at 15% 25%, rgba(80, 55, 25, 0.35) 0%, transparent 55%),
+                radial-gradient(ellipse at 85% 75%, rgba(35, 55, 30, 0.25) 0%, transparent 55%),
+                repeating-linear-gradient(45deg, #0f0b08 0px, #0f0b08 1px, #16100b 1px, #16100b 3px);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* ============================================================
+                   UTILITY
+                   ============================================================ */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px 30px;
+        }
+
+        /* ============================================================
+                   ANIMATIONS — полный набор
+                   ============================================================ */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(45px) scale(0.97);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes floatY {
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-16px);
+            }
+        }
+
+        @keyframes floatX {
+            0%,
+            100% {
+                transform: translateX(0px);
+            }
+            50% {
+                transform: translateX(10px);
+            }
+        }
+
+        @keyframes shimmerGold {
+            0% {
+                background-position: -200% center;
+            }
+            100% {
+                background-position: 200% center;
+            }
+        }
+
+        @keyframes shimmerBorder {
+            0%,
+            100% {
+                border-color: rgba(212, 168, 75, 0.15);
+            }
+            50% {
+                border-color: rgba(212, 168, 75, 0.4);
+            }
+        }
+
+        @keyframes glowPulse {
+            0%,
+            100% {
+                box-shadow: 0 0 20px rgba(212, 168, 75, 0.02);
+            }
+            50% {
+                box-shadow: 0 0 60px rgba(212, 168, 75, 0.08);
+            }
+        }
+
+        @keyframes particles {
+            0% {
+                transform: translateY(0) rotate(0deg) scale(0.5);
+                opacity: 0;
+            }
+            15% {
+                opacity: 1;
+                transform: translateY(-10px) rotate(30deg) scale(1);
+            }
+            100% {
+                transform: translateY(-140px) rotate(720deg) scale(0.3);
+                opacity: 0;
+            }
+        }
+
+        @keyframes textShimmer {
+            0% {
+                background-position: -300% center;
+            }
+            100% {
+                background-position: 300% center;
+            }
+        }
+
+        @keyframes borderGlow {
+            0%,
+            100% {
+                box-shadow: 0 0 15px rgba(212, 168, 75, 0.05);
+            }
+            50% {
+                box-shadow: 0 0 30px rgba(212, 168, 75, 0.15);
+            }
+        }
+
+        .anim-fade-up {
+            animation: fadeUp 0.9s var(--transition-smooth) forwards;
+        }
+        .anim-delay-1 {
+            animation-delay: 0.05s;
+            opacity: 0;
+        }
+        .anim-delay-2 {
+            animation-delay: 0.15s;
+            opacity: 0;
+        }
+        .anim-delay-3 {
+            animation-delay: 0.25s;
+            opacity: 0;
+        }
+        .anim-delay-4 {
+            animation-delay: 0.35s;
+            opacity: 0;
+        }
+        .anim-delay-5 {
+            animation-delay: 0.45s;
+            opacity: 0;
+        }
+
+        /* ============================================================
+                   DECORATIVE PARTICLES
+                   ============================================================ */
+        .particles-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            font-size: 18px;
+            opacity: 0;
+            animation: particles 14s infinite linear;
+        }
+        .particle:nth-child(1) {
+            left: 8%;
+            animation-delay: 0s;
+            font-size: 22px;
+        }
+        .particle:nth-child(2) {
+            left: 22%;
+            animation-delay: 2.5s;
+            font-size: 16px;
+        }
+        .particle:nth-child(3) {
+            left: 38%;
+            animation-delay: 5s;
+            font-size: 26px;
+        }
+        .particle:nth-child(4) {
+            left: 52%;
+            animation-delay: 1.2s;
+            font-size: 20px;
+        }
+        .particle:nth-child(5) {
+            left: 68%;
+            animation-delay: 3.8s;
+            font-size: 24px;
+        }
+        .particle:nth-child(6) {
+            left: 84%;
+            animation-delay: 6.5s;
+            font-size: 18px;
+        }
+        .particle:nth-child(7) {
+            left: 48%;
+            animation-delay: 3s;
+            font-size: 22px;
+        }
+
+        /* ============================================================
+                   HEADER — улучшенный
+                   ============================================================ */
+        .header {
+            background: linear-gradient(180deg, #1a1410 0%, #0b0806 100%);
+            border-bottom: 2px solid var(--gold);
+            padding: 16px 0 12px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(16px) saturate(1.2);
+            -webkit-backdrop-filter: blur(16px) saturate(1.2);
+            box-shadow: 0 4px 50px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(212, 168, 75, 0.05);
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 28px;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header-logo-icon {
+            font-size: 42px;
+            animation: floatY 6s ease-in-out infinite;
+            filter: drop-shadow(0 0 30px rgba(212, 168, 75, 0.2));
+            transition: transform 0.3s;
+        }
+
+        .header-logo-icon:hover {
+            transform: scale(1.1) rotate(-5deg);
+        }
+
+        .header h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 40px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #f0d68a 0%, #d4a84b 30%, #a8832f 60%, #d4a84b 100%);
+            background-size: 250% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 10px;
+            animation: textShimmer 10s linear infinite;
+            position: relative;
+            text-shadow: none;
+        }
+
+        .header h1::after {
+            content: "𓂀";
+            font-size: 24px;
+            -webkit-text-fill-color: initial;
+            color: var(--gold);
+            margin-left: 14px;
+            opacity: 0.35;
+            animation: floatX 5s ease-in-out infinite;
+            display: inline-block;
+            filter: drop-shadow(0 0 10px rgba(212, 168, 75, 0.15));
+        }
+
+        .header-sub {
+            color: var(--text-secondary);
+            font-size: 12px;
+            margin-top: 6px;
+            letter-spacing: 14px;
+            font-weight: 300;
+            text-transform: uppercase;
+            opacity: 0.5;
+            transition: opacity 0.3s;
+        }
+
+        .header-sub:hover {
+            opacity: 0.8;
+        }
+
+        .header-sub span {
+            color: var(--gold);
+            opacity: 1;
+        }
+
+        /* ============================================================
+                   HERO — улучшенный
+                   ============================================================ */
+        .hero {
+            background: linear-gradient(160deg, #1c1610 0%, #0f0b08 100%);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-gold);
+            padding: 64px 44px 52px;
+            margin-bottom: 50px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-card), var(--shadow-gold);
+            animation: glowPulse 6s ease-in-out infinite;
+            z-index: 1;
+            transition: border-color 0.5s;
+        }
+
+        .hero:hover {
+            border-color: var(--border-gold-hover);
+        }
+
+        .hero::before {
+            content: "𓋴";
+            position: absolute;
+            top: -50px;
+            right: -30px;
+            font-size: 260px;
+            opacity: 0.03;
+            transform: rotate(20deg);
+            pointer-events: none;
+            font-family: serif;
+            transition: opacity 0.5s;
+        }
+
+        .hero:hover::before {
+            opacity: 0.06;
+        }
+
+        .hero::after {
+            content: "𓃥";
+            position: absolute;
+            bottom: -50px;
+            left: -30px;
+            font-size: 240px;
+            opacity: 0.03;
+            transform: rotate(-15deg);
+            pointer-events: none;
+            font-family: serif;
+            transition: opacity 0.5s;
+        }
+
+        .hero:hover::after {
+            opacity: 0.06;
+        }
+
+        .hero-glow {
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(ellipse at center, rgba(212, 168, 75, 0.05) 0%, transparent 60%);
+            pointer-events: none;
+            animation: glowPulse 8s ease-in-out infinite;
+        }
+
+        /* Декоративная линия над заголовком */
+        .hero-ornament {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-ornament .line {
+            width: 60px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            opacity: 0.3;
+        }
+
+        .hero-ornament .diamond {
+            color: var(--gold);
+            font-size: 12px;
+            opacity: 0.4;
+        }
+
+        .hero-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 60px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #f0d68a 0%, #d4a84b 35%, #a8832f 65%, #d4a84b 100%);
+            background-size: 250% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 18px;
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 1;
+            animation: textShimmer 12s linear infinite;
+        }
+
+        .hero-title .accent {
+            background: none;
+            -webkit-text-fill-color: initial;
+            color: var(--text-primary);
+        }
+
+        .hero-desc {
+            font-size: 20px;
+            color: var(--text-secondary);
+            max-width: 750px;
+            margin: 0 auto 34px;
+            line-height: 1.9;
+            position: relative;
+            z-index: 1;
+            font-weight: 300;
+        }
+
+        .hero-desc strong {
+            color: var(--gold);
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .hero-desc strong:hover {
+            color: var(--gold-light);
+        }
+
+        /* ====== HERO STATS ====== */
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 36px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-stat {
+            text-align: center;
+            background: rgba(26, 21, 16, 0.5);
+            padding: 20px 34px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-gold);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            min-width: 120px;
+            transition: all 0.4s var(--transition-smooth);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-stat::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(212, 168, 75, 0.04), transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .hero-stat:hover {
+            transform: translateY(-8px) scale(1.03);
+            border-color: var(--gold);
+            box-shadow: 0 16px 56px rgba(212, 168, 75, 0.12);
+            background: rgba(26, 21, 16, 0.8);
+        }
+
+        .hero-stat:hover::before {
+            opacity: 1;
+        }
+
+        .hero-stat .number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 44px;
+            font-weight: 700;
+            color: var(--gold);
+            text-shadow: 0 0 50px rgba(212, 168, 75, 0.1);
+            line-height: 1.2;
+        }
+
+        .hero-stat .label {
+            font-size: 13px;
+            color: var(--text-secondary);
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            margin-top: 4px;
+            font-weight: 300;
+        }
+
+        /* ============================================================
+                   GRID BUTTONS — улучшенные карточки
+                   ============================================================ */
+        .grid-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+            margin-bottom: 50px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-card {
+            background: linear-gradient(145deg, #1c1610, #120e0a);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-gold);
+            padding: 40px 20px 34px;
+            text-align: center;
+            transition: all 0.5s var(--transition-smooth);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-card);
+            position: relative;
+            overflow: hidden;
+            min-height: 220px;
+            cursor: pointer;
+        }
+
+        /* Стеклянный эффект */
+        .btn-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(212, 168, 75, 0.06), transparent 50%);
+            opacity: 0;
+            transition: opacity 0.6s;
+            pointer-events: none;
+        }
+
+        /* Анимированная золотая подложка */
+        .btn-card::after {
+            content: "";
+            position: absolute;
+            top: -60%;
+            left: -60%;
+            width: 220%;
+            height: 220%;
+            background: conic-gradient(from 0deg, transparent, rgba(212, 168, 75, 0.05), transparent 40%);
+            animation: shimmerGold 15s linear infinite;
+            opacity: 0;
+            transition: opacity 0.6s;
+            pointer-events: none;
+        }
+
+        .btn-card:hover::before {
+            opacity: 1;
+        }
+        .btn-card:hover::after {
+            opacity: 1;
+        }
+
+        .btn-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-10px) scale(1.01);
+            box-shadow: 0 28px 72px rgba(212, 168, 75, 0.12);
+            background: linear-gradient(145deg, #241d15, #120e0a);
+        }
+
+        .btn-card .icon {
+            font-size: 56px;
+            margin-bottom: 16px;
+            display: block;
+            line-height: 1;
+            filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.5));
+            transition: transform 0.5s var(--transition-bounce);
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-card:hover .icon {
+            transform: scale(1.18) rotate(-8deg) translateY(-4px);
+        }
+
+        .btn-card .btn-label {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+            letter-spacing: 0.5px;
+            position: relative;
+            z-index: 1;
+            transition: color 0.3s;
+        }
+
+        .btn-card:hover .btn-label {
+            color: var(--gold-light);
+        }
+
+        .btn-card .btn-sub {
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-weight: 300;
+            position: relative;
+            z-index: 1;
+            transition: color 0.3s;
+        }
+
+        .btn-card:hover .btn-sub {
+            color: var(--text-primary);
+        }
+
+        .btn-card .badge {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 5px 22px;
+            border-radius: 30px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-top: 16px;
+            transition: all 0.4s var(--transition-smooth);
+            position: relative;
+            z-index: 1;
+ 
