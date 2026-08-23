@@ -21,6 +21,7 @@ jobs:
           python-version: '3.12'
       - run: python -m pip install requests
       - run: python .modpack-build/build_modpack.py
+      - run: python .modpack-build/export_links.py
       - uses: actions/upload-artifact@v4
         with:
           name: Survival_1.21.1_NeoForge_MODS
@@ -34,5 +35,7 @@ jobs:
             out/MODLIST.txt
             out/FAILED_OR_SKIPPED.txt
             out/BUILD_NOTES.txt
+            out/MODRINTH_LINKS.txt
+            out/MODRINTH_LINKS_WITH_FILES.txt
           if-no-files-found: warn
           retention-days: 1
