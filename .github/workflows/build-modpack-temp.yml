@@ -1,0 +1,35 @@
+name: Build temporary NeoForge modpack
+
+on:
+  push:
+    branches:
+      - modpack-build-temp
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install requests
+      - run: python .modpack-build/build_modpack.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Survival_1.21.1_NeoForge_MODS
+          path: out/Survival_1.21.1_NeoForge_MODS.zip
+          if-no-files-found: error
+          retention-days: 1
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Survival_1.21.1_NeoForge_BUILD_REPORT
+          path: |
+            out/MODLIST.txt
+            out/FAILED_OR_SKIPPED.txt
+            out/BUILD_NOTES.txt
+          if-no-files-found: warn
+          retention-days: 1
